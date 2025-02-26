@@ -1,121 +1,136 @@
-# <img src="public/image.png" alt="Qubex Logo" width="70" align="center"/> Qubex - AI-Powered Intelligent IDE
 
+# <img src="public/image.png" alt="Qubex Logo" width="70" align="center"/> Qubex - AI-Powered Intelligent IDE  
 
-An advanced, lightweight code editor with **AI-driven** code completion, bug fixing, test case generation, and refactoring features. Built using **Next.js (App Router) with API routes**, **Monaco Editor**, **Cohere AI**, and **Socket.IO**.
+> **Code Faster, Fix Smarter**  
 
-## ✨ Features
-
-### 🔹 **Core Features**
-- **Code Editor**: A powerful Monaco-based editor with syntax highlighting, auto-indentation, and bracket matching for a seamless coding experience.
-- **AI-Powered Code Assistance**: Provides real-time intelligent code suggestions and completions to speed up development.
-- **AI Debugging Assistant**: Detects and fixes bugs instantly, offering explanations and corrections.
-- **Automated Test Case Generation**: AI analyzes code and generates test cases tailored to different programming languages.
-- **Code Refactoring**: Optimizes code for readability, efficiency, and maintainability with AI-powered recommendations.
-- **File Management**: Users can create, rename, and delete files within an intuitive file explorer.
-- **Multi-Language Support**: Supports C, C++, Python, JavaScript, TypeScript, Java, and more.
-
-### 🎨 **UI/UX Enhancements**
-- **Sidebar Navigation**: Expandable/collapsible sidebar for easy access to various features.
-- **Theme Toggle**: Seamless switching between **dark** and **light** themes for user preference.
-- **Dropdown Output View**: Execution results are displayed in a collapsible section, enhancing user experience.
+A next-generation **AI-powered code editor** that enhances development efficiency with **AI-driven code completion, debugging, test case generation, and refactoring.** .Built with **Next.js (App Router)**, **Monaco Editor**, **Cohere AI**, **Google Gemini API**, and **Google Vertex AI**, Qubex streamlines coding workflows for **developers, students, and professionals**.
 
 ---
 
-## 🛠️ Tech Stack
+## ✨ Features  
 
-| **Technology** | **Purpose** |
-|---------------|------------|
-| **Next.js (App Router)** | Frontend & API backend |
-| **TypeScript** | Type safety and improved development experience |
-| **Monaco Editor** | Code editor for an enhanced IDE experience |
-| **Cohere AI API** | AI-driven code assistance and debugging |
-| **Socket.IO** | Real-time collaboration and code execution |
-| **Tailwind CSS** | UI styling and responsiveness |
+### 🔹 **Core Features**  
+ **📝 Code Editor** – A **Monaco-powered** editor with **syntax highlighting**, **auto-indentation**, and **bracket matching**.  
+ **🤖 AI Code Assistance** – Get **real-time intelligent code suggestions** from **Cohere AI** and **Google Gemini API**.  
+ **🔍 AI Debugging Assistant** – Detect and fix **syntax & logical errors** instantly using **Google Vertex AI**.  
+ **🛠️ Automated Test Case Generation** – AI **analyzes** functions and generates **reliable test cases**.  
+ **📝 Code Refactoring** – Improve code **readability, efficiency, and maintainability** with **Google Vertex AI**.  
+ **📂 File Management** – **Create, rename, and delete files** with an intuitive file explorer.  
+ **🌎 Multi-Language Support** – Supports **C, C++, Python, JavaScript, TypeScript, Java**, and more.  
+
+### 🎨 **UI/UX Enhancements**  
+ **📑 Sidebar Navigation** – Expandable/collapsible **sidebar for smooth navigation**.  
+ **🎭 Theme Toggle** – Easily switch between **Dark** 🌙 and **Light** ☀️ themes.  
+ **📌 Dropdown Output View** – **Collapsible** execution output panel for a better user experience.  
 
 ---
 
-## 🚀 Installation & Setup
+## 🛠️ Tech Stack  
 
-### 1️⃣ **Clone the repository**
+| **🔧 Technology**        | **📌 Purpose**                                   |  
+|----------------------|-------------------------------------------|  
+| **⚡ Next.js (App Router)** | Frontend & API backend                     |  
+| **🟦 TypeScript**       | Type safety & improved development experience  |  
+| **📝 Monaco Editor**    | Rich code editing features                   |  
+| **🤖 Cohere AI API**    | AI-driven code assistance & debugging         |  
+| **🌟 Google Gemini API** | AI-powered code suggestions                  |  
+| **🔍 Google Vertex AI** | AI debugging & code refactoring               |  
+| **🚀 Judge0 API**       | Multi-language code execution                 |  
+| **🎨 Tailwind CSS**     | UI styling & responsiveness                   |  
+
+---
+
+## 🚀 Installation & Setup  
+
+### 1️⃣ **Clone the repository**  
 ```bash
 git clone https://github.com/hemanvithapullela0456/qubex.git
 cd qubex
 ```
 
-### 2️⃣ **Install dependencies**
+### 2️⃣ **Install dependencies**  
 ```bash
 npm install
 # or
 yarn install
 ```
 
-### 3️⃣ **Set up environment variables**
-Create a `.env.local` file and add the following:
+### 3️⃣ **Set up environment variables**  
+Create a `.env.local` file and add the following:  
 ```env
 NEXT_PUBLIC_COHERE_API_KEY=your_cohere_api_key
-NEXT_PUBLIC_SOCKET_SERVER=http://localhost:3001
+NEXT_PUBLIC_GEMINI_API_KEY=your_google_gemini_api_key
+NEXT_PUBLIC_VERTEX_API_KEY=your_google_vertex_ai_key
 NEXT_PUBLIC_JUDGE0_API_KEY=your_judge0_api_key
 ```
 
-### 4️⃣ **Run the development server**
+### 4️⃣ **Run the development server**  
 ```bash
 npm run dev
 # or
 yarn dev
 ```
 
-The IDE will be available at **[http://localhost:3000](http://localhost:3000)**.
+The IDE will be available at **[http://localhost:3000](http://localhost:3000)**.  
 
 ---
 
-## 📌 API Endpoints & Feature Descriptions
+## 📌 API Endpoints & Feature Descriptions  
 
-### 🔹 **1. Execute Code**
-- **Description**: Allows users to run code in multiple programming languages using the **Judge0 API** for execution.
-- **Route**: `POST /api/execute-code`
+### 🔹 **1. Execute Code 🚀**  
+- **Description**: Run code in multiple languages using the **Judge0 API**.  
+- **Route**: `POST /api/execute-code`  
 
-<img src="images/execute_code.png" alt="Execute Code" width="600" />
+<img src="public/image1.png" alt="Execute Code" width="600" />  
 
-### 🔹 **2. AI Bug Fixing**
-- **Description**: Detects errors in the provided source code and suggests fixes.
-- **Route**: `POST /api/ai-bug-fixing`
+### 🔹 **2. AI Bug Fixing 🤖**  
+- **Description**: Detect and fix **syntax & logical errors** instantly using **Google Vertex AI**.  
+- **Route**: `POST /api/ai-bug-fixing`  
 
-<img src="images/ai_bug_fixing.png" alt="AI Bug Fixing" width="600" />
+<img src="public/image2.png" alt="AI Bug Fixing" width="600" />  
 
-### 🔹 **3. Generate Test Cases**
-- **Description**: Generates comprehensive test cases based on function logic to ensure reliability. 
-- **Different testing frameworks are used based on the programming language:**
-  - **JavaScript**: Jest
-  - **C**: CUnit
-  - **C++**: Google Test (GTest)
-  - **Python**: PyTest
-  - **Java**: JUnit
-- **Route**: `POST /api/generate-test-cases`
+### 🔹 **3. Generate Test Cases 🛠️**  
+- **Description**: AI generates **comprehensive test cases** based on function logic.  
+- **Different frameworks per language:**  
+  - **JavaScript**: Jest  
+  - **C**: CUnit  
+  - **C++**: Google Test (GTest)  
+  - **Python**: PyTest  
+  - **Java**: JUnit  
+- **Route**: `POST /api/generate-test-cases`  
 
-<img src="images/generate_test_cases.png" alt="Generate Test Cases" width="600" />
+<img src="public/image3.png" alt="Generate Test Cases" width="600" />  
 
-### 🔹 **4. Code Refactoring**
-- **Description**: Improves code structure, formatting, and readability using AI-driven suggestions.
-- **Route**: `POST /api/code-refactoring`
+### 🔹 **4. Code Refactoring 🔄**  
+- **Description**: Optimize code structure, formatting, and readability using **Google Vertex AI**.  
+- **Route**: `POST /api/code-refactoring`  
 
-<img src="images/code_refactoring.png" alt="Code Refactoring" width="600" />
-
----
-
-## 🎯 Future Enhancements
-- 🔹 **Real-time collaboration** (multi-user live coding with WebSockets)
-- 🔹 **AI-powered documentation** (auto-generate function/method documentation)
-- 🔹 **Multi-file execution** (allow running multiple files together)
-- 🔹 **Integration with GitHub** (save & sync code directly from GitHub)
+<img src="public/image4.png" alt="Code Refactoring" width="600" />  
 
 ---
 
-## 🙌 Contributing
-We welcome contributions! Please fork the repo, create a feature branch, and submit a **pull request**.
+## 🎯 Future Enhancements 
+
+ **🖥️ Real-time collaboration** – Live multi-user coding via **WebSockets**.  
+ **📜 AI-powered documentation** – Auto-generate **function/method documentation**.  
+ **🗂️ Multi-file execution** – Run multiple files **simultaneously**.  
+ **📡 GitHub Integration** – Save & sync code directly with **GitHub**.  
+ **🔐 Google OAuth Authentication** – Secure user login.  
+ **🤖 More AI-powered explanations** – **Google Gemini AI** for explaining complex coding concepts.  
 
 ---
 
-## 📜 License
-This project is **MIT Licensed**.
+## 🔒 Security & Privacy 
+
+🔹 **No Permanent Storage** – User code is **not stored permanently**.  
+🔹 **Secure Processing** – AI processing is done **securely via Google Vertex AI encryption**.  
+🔹 **Authentication (Upcoming)** – **Google OAuth** for safe user login.  
+
+
+---
+
+## 📜 License 📄  
+
+This project is **MIT Licensed**.  
 
 ---
