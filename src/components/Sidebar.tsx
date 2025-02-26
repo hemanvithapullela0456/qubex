@@ -17,8 +17,9 @@ const Sidebar: React.FC<SidebarProps> = ({ setActiveFeature }) => {
   const features = [
     { name: "AI Debugging", path: "/ai-bug-fixing", icon: <Bug size={28} /> },
     { name: "Test Cases", path: "/automated-test-cases", icon: <BsFileEarmarkCode size={28} /> },
-    { name: "Refactoring", path: "/code-refactoring", icon: <AiOutlineSetting size={28} /> },
+    { name: "Refactoring", path: "/ai-code-refactoring", icon: <AiOutlineSetting size={28} /> },
   ];
+  
 
   return (
     <div
