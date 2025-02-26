@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 
 export async function POST(req: Request) {
   try {
@@ -7,7 +7,7 @@ export async function POST(req: Request) {
 
     const { source_code, language_id } = await req.json();
 
-    console.log("Input:", { source_code, language_id });
+    console.log("Received Request:", { language_id });
 
     if (!source_code || !language_id) {
       return NextResponse.json(
@@ -18,7 +18,11 @@ export async function POST(req: Request) {
 
     const submissionResponse = await axios.post(
       "https://judge0-ce.p.rapidapi.com/submissions",
-      { source_code, language_id },
+      {
+        source_code,
+        language_id,
+        stdin: "", // Modify this to pass test case input if needed
+      },
       {
         headers: {
           "Content-Type": "application/json",
@@ -33,7 +37,7 @@ export async function POST(req: Request) {
 
     let result;
     for (let i = 0; i < 5; i++) {
-      await new Promise((resolve) => setTimeout(resolve, 1000)); 
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
       result = await axios.get(
         `https://judge0-ce.p.rapidapi.com/submissions/${token}`,
@@ -47,13 +51,29 @@ export async function POST(req: Request) {
 
       console.log("Polling Result:", result?.data);
 
-      if (result?.data?.status?.id > 2) break; 
+      if (result?.data?.status?.id > 2) break;
     }
 
-    console.log("Final Execution Result:", result?.data);
-    return NextResponse.json(result?.data || { error: "No response from Judge0" });
+    if (!result?.data) {
+      return NextResponse.json({ error: "Execution failed: No response from Judge0" });
+    }
+
+    // Check for execution errors
+    if (result?.data?.status?.id !== 3) {
+      return NextResponse.json({
+        error: result?.data?.stderr || "Execution failed",
+        status: result?.data?.status,
+      });
+    }
+
+    console.log("Final Execution Result:", result.data);
+    return NextResponse.json({
+      stdout: result.data.stdout || "No output",
+      stderr: result.data.stderr || "",
+      execution_time: result.data.time,
+    });
   } catch (error: any) {
-    console.error("Error:", error.response?.data || error.message);
+    console.error("Execution Error:", error.response?.data || error.message);
     return NextResponse.json(
       { error: error.response?.data || "Execution failed" },
       { status: 500 }

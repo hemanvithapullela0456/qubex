@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { FaFolder, FaFolderOpen, FaFile, FaEdit, FaTrash, FaPlus } from "react-icons/fa";
 
 interface File {
   name: string;
@@ -14,6 +15,7 @@ interface FileManagerProps {
   onFileOpen: (file: { name: string; type: "file"; language: string; content: string }) => void;
   onFileRename: (oldName: string, newName: string) => void;
   onFileDelete: (fileName: string) => void;
+  sidebarOpen: boolean;
 }
 
 // Initial files structure
@@ -31,6 +33,7 @@ const FileManager: React.FC<FileManagerProps> = ({
   onFileOpen,
   onFileRename,
   onFileDelete,
+  sidebarOpen,
 }) => {
   const [files, setFiles] = useState<File>(initialFiles);
   const [newFileName, setNewFileName] = useState<string>("");
@@ -39,9 +42,8 @@ const FileManager: React.FC<FileManagerProps> = ({
 
   const handleFileClick = (file: File) => {
     if (file.type === "file") {
-      const language = file.language || "text";
-      const content = file.content || "";
-      onFileOpen({ name: file.name, type: "file", language, content });
+      const language = file.language?.toLowerCase() || "text";
+      onFileOpen({ name: file.name, type: "file", language, content: file.content || "" });
     }
   };
 
@@ -52,38 +54,34 @@ const FileManager: React.FC<FileManagerProps> = ({
     }
 
     const extension = newFileName.split(".").pop()?.toLowerCase();
-    let language = "text"; // Default language
+    let language = "text";
     if (extension === "js") language = "javascript";
     else if (extension === "cpp") language = "cpp";
     else if (extension === "c") language = "c";
-    else if(extension === "py") language = "python";
+    else if (extension === "py") language = "python";
 
     const newFile: File = {
       name: newFileName,
       type: "file",
       language,
-      content: "", // Default empty content
+      content: "",
     };
 
-    const updatedFiles = {
+    setFiles({
       ...files,
       children: [...(files.children || []), newFile],
-    };
+    });
 
-    setFiles(updatedFiles);
-    setNewFileName(""); // Clear the input field
-
-    // Automatically open the new file in the CodeEditor
+    setNewFileName("");
     onFileOpen({ name: newFileName, type: "file", language, content: "" });
   };
 
   const handleDeleteFile = (fileName: string) => {
-    const updatedFiles = {
+    setFiles({
       ...files,
       children: files.children?.filter((file) => file.name !== fileName),
-    };
-    setFiles(updatedFiles);
-    onFileDelete(fileName); // Notify parent component
+    });
+    onFileDelete(fileName);
   };
 
   const handleRenameFile = (fileName: string) => {
@@ -97,87 +95,94 @@ const FileManager: React.FC<FileManagerProps> = ({
       return;
     }
 
-    const updatedFiles = {
+    setFiles({
       ...files,
       children: files.children?.map((file) =>
         file.name === oldName ? { ...file, name: tempFileName } : file
       ),
-    };
+    });
 
-    setFiles(updatedFiles);
-    setEditingFile(null); // Disable editing mode
-    setTempFileName(""); // Clear the temporary file name
-    onFileRename(oldName, tempFileName); // Notify parent component
+    setEditingFile(null);
+    setTempFileName("");
+    onFileRename(oldName, tempFileName);
   };
 
   return (
-    <div className="p-2">
-      <h3 className="text-green-400">EDITOR</h3>
-
-      {/* Add New File Input */}
-      <div className="mb-4">
-        <input
-          type="text"
-          value={newFileName}
-          onChange={(e) => setNewFileName(e.target.value)}
-          placeholder="New file name"
-          className="p-1 text-black rounded"
-        />
-        <button
-          onClick={handleAddFile}
-          className="ml-2 p-1 bg-green-500 text-white rounded hover:bg-green-600"
-        >
-          Add File
-        </button>
+    <div className={`p-2 ${sidebarOpen ? "w-76" : "w-12"} transition-all duration-300 flex flex-col`}>
+      {sidebarOpen ? (
+        <>
+          {/* Sidebar Open: Show Full File List */}
+          <div className="bg-[#161b22] border-b border-[#21262d] pl-6 pr-4
+           pt-4 pb-4 mb-4">
+        <div className="flex items-center gap-2 text-green-400">
+          <FaFolderOpen className="w-5 h-5" />
+          <h2 className="text-lg font-semibold">Editor</h2>
+        </div>
       </div>
 
-      {/* File Tree */}
-      <ul className="text-green-300">
-        <li>
-          <span className="font-bold">root</span>
-          <ul className="ml-4">
-            {files.children?.map((file) => (
-              <li
-                key={file.name}
-                className="cursor-pointer hover:text-green-500 flex items-center justify-between"
-              >
-                {/* File Name or Rename Input */}
-                {editingFile === file.name ? (
-                  <input
-                    type="text"
-                    value={tempFileName}
-                    onChange={(e) => setTempFileName(e.target.value)}
-                    onBlur={() => handleSaveRename(file.name)} // Save on blur
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") handleSaveRename(file.name); // Save on Enter
-                    }}
-                    className="p-1 text-black rounded"
-                    autoFocus
-                  />
-                ) : (
-                  <span onClick={() => handleFileClick(file)}>📄 {file.name}</span>
-                )}
+          {/* Add New File Input */}
+          <div className="flex items-center mt-2 gap-2 px-5">
+            <input
+              type="text"
+              value={newFileName}
+              onChange={(e) => setNewFileName(e.target.value)}
+              placeholder="New file name"
+              className="p-1 text-black rounded w-full"
+            />
+            <button
+              onClick={handleAddFile}
+              className="p-1 bg-blue-600 text-white rounded hover:bg-blue-600 flex items-center gap-1"
+            >
+              <FaPlus />
+            </button>
+          </div>
 
-                {/* Rename and Delete Buttons */}
+          {/* File List */}
+          <ul className="mt-2 w-full px-5">
+            {files.children?.map((file) => (
+              <li key={file.name} className="flex items-center justify-between py-1">
+                {/* File Click */}
+                <div
+                  className="flex items-center gap-2 cursor-pointer hover:text-blue-500"
+                  onClick={() => handleFileClick(file)}
+                >
+                  <FaFile /> {editingFile === file.name ? (
+                    <input
+                      type="text"
+                      value={tempFileName}
+                      onChange={(e) => setTempFileName(e.target.value)}
+                      onBlur={() => handleSaveRename(file.name)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") handleSaveRename(file.name);
+                      }}
+                      className="p-1 text-black rounded"
+                    />
+                  ) : (
+                    file.name
+                  )}
+                </div>
+
+                {/* Edit & Delete Buttons */}
                 <div className="flex gap-2">
-                  <button
+                  <FaEdit
+                    className="cursor-pointer text-yellow-400 hover:text-yellow-500"
                     onClick={() => handleRenameFile(file.name)}
-                    className="text-yellow-400 hover:text-yellow-500"
-                  >
-                    ✏️
-                  </button>
-                  <button
+                  />
+                  <FaTrash
+                    className="cursor-pointer text-red-400 hover:text-red-500"
                     onClick={() => handleDeleteFile(file.name)}
-                    className="text-red-400 hover:text-red-500"
-                  >
-                    🗑️
-                  </button>
+                  />
                 </div>
               </li>
             ))}
           </ul>
-        </li>
-      </ul>
+        </>
+      ) : (
+        /* Sidebar Collapsed: Show Only Root Folder */
+        <div className="text-blue-400 text-xl flex justify-center">
+          <FaFolder />
+        </div>
+      )}
     </div>
   );
 };
