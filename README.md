@@ -74,13 +74,13 @@ The IDE will be available at **[http://localhost:3000](http://localhost:3000)**.
 - **Description**: Allows users to run code in multiple programming languages using the **Judge0 API** for execution.
 - **Route**: `POST /api/execute-code`
 
-<img src="images/execute_code.png" alt="Execute Code" width="600" />
+<img src="public/image1.png" alt="Execute Code" width="600" />
 
 ### 🔹 **2. AI Bug Fixing**
 - **Description**: Detects errors in the provided source code and suggests fixes.
 - **Route**: `POST /api/ai-bug-fixing`
 
-<img src="images/ai_bug_fixing.png" alt="AI Bug Fixing" width="600" />
+<img src="public/image2.png" alt="AI Bug Fixing" width="600" />
 
 ### 🔹 **3. Generate Test Cases**
 - **Description**: Generates comprehensive test cases based on function logic to ensure reliability. 
@@ -92,13 +92,13 @@ The IDE will be available at **[http://localhost:3000](http://localhost:3000)**.
   - **Java**: JUnit
 - **Route**: `POST /api/generate-test-cases`
 
-<img src="images/generate_test_cases.png" alt="Generate Test Cases" width="600" />
+<img src="public/image3.png" alt="Generate Test Cases" width="600" />
 
 ### 🔹 **4. Code Refactoring**
 - **Description**: Improves code structure, formatting, and readability using AI-driven suggestions.
 - **Route**: `POST /api/code-refactoring`
 
-<img src="images/code_refactoring.png" alt="Code Refactoring" width="600" />
+<img src="public/image4.png" alt="Code Refactoring" width="600" />
 
 ---
 
