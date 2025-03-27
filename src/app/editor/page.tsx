@@ -5,7 +5,7 @@ import Sidebar from "../../components/Sidebar";
 import CodeEditor from "../../components/CodeEditor";
 import FileManager from "../../components/FileManager";
 import AIBugFixing from "../ai-bug-fixing/_components/AiBugFixing"; 
-import AIUnitTest from "../ai-test-generation/page";
+import AIUnitTest from "../ai-test-generation/_components/AITestGeneration";
 import AICodeRefactoring from "../ai-code-refactoring/_components/AICodeRefactoring";
 import { FaTimes } from "react-icons/fa";
 import "../globals.css";
