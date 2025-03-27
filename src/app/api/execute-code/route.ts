@@ -72,11 +72,19 @@ export async function POST(req: Request) {
       stderr: result.data.stderr || "",
       execution_time: result.data.time,
     });
-  } catch (error: any) {
-    console.error("Execution Error:", error.response?.data || error.message);
+  }  catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      console.error("Execution Error:", error.response?.data || error.message);
+      return NextResponse.json(
+        { error: error.response?.data || "Execution failed" },
+        { status: 500 }
+      );
+    }
+  
+    console.error("Unexpected Error:", error);
     return NextResponse.json(
-      { error: error.response?.data || "Execution failed" },
+      { error: "An unexpected error occurred" },
       { status: 500 }
     );
-  }
+  }  
 }

@@ -30,7 +30,6 @@ interface CodeEditorProps {
 const CodeEditor: React.FC<CodeEditorProps> = ({ code, setCode, language }) => {
   const [output, setOutput] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [generatedTests, setGeneratedTests] = useState<string[]>([]); // Store AI-generated test cases
   const [theme, setTheme] = useState<"light" | "dark">("dark"); // Theme state
 
   const toggleTheme = () => {
@@ -72,42 +71,42 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ code, setCode, language }) => {
     }
   };
 
-  const runGeneratedTestCases = async () => {
-    if (!generatedTests.length) {
-      alert("No AI-generated test cases available.");
-      return;
-    }
+  // const runGeneratedTestCases = async () => {
+  //   if (!generatedTests.length) {
+  //     alert("No AI-generated test cases available.");
+  //     return;
+  //   }
 
-    setLoading(true);
-    setOutput(null);
+  //   setLoading(true);
+  //   setOutput(null);
 
-    try {
-      let combinedOutput = "";
+  //   try {
+  //     let combinedOutput = "";
 
-      for (const testCase of generatedTests) {
-        const language_id = languageMap[language.toLowerCase()];
-        if (!language_id) throw new Error(`Unsupported language: ${language}`);
+  //     for (const testCase of generatedTests) {
+  //       const language_id = languageMap[language.toLowerCase()];
+  //       if (!language_id) throw new Error(`Unsupported language: ${language}`);
 
-        const res = await fetch("/api/execute-code", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ source_code: testCase, language_id }),
-        });
+  //       const res = await fetch("/api/execute-code", {
+  //         method: "POST",
+  //         headers: { "Content-Type": "application/json" },
+  //         body: JSON.stringify({ source_code: testCase, language_id }),
+  //       });
 
-        if (!res.ok) throw new Error(`Server error: ${res.status}`);
+  //       if (!res.ok) throw new Error(`Server error: ${res.status}`);
 
-        const data = await res.json();
-        combinedOutput += `Test Case Output:\n${data.stdout || data.stderr || "No output"}\n\n`;
-      }
+  //       const data = await res.json();
+  //       combinedOutput += `Test Case Output:\n${data.stdout || data.stderr || "No output"}\n\n`;
+  //     }
 
-      setOutput(combinedOutput);
-    } catch (error) {
-      console.error("Error executing test cases:", error);
-      setOutput("Error executing test cases.");
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     setOutput(combinedOutput);
+  //   } catch (error) {
+  //     console.error("Error executing test cases:", error);
+  //     setOutput("Error executing test cases.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   return (
     <div className={`p-4 border-l transition-all duration-300 w-full h-screen flex flex-col ${theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-black"}`}>
@@ -144,9 +143,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ code, setCode, language }) => {
         </button>
 
         <button
-          onClick={runGeneratedTestCases}
           className={`p-2 bg-green-500 text-white rounded hover:bg-green-600 ${theme === "light" ? "shadow-lg" : ""}`}
-          disabled={loading || !generatedTests.length}
         >
           Execute AI Test Cases
         </button>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { FlaskConical, Play, Copy, ChevronDown } from "lucide-react";
+import {Play, Copy, ChevronDown } from "lucide-react";
 import { BsFileEarmarkCode} from "react-icons/bs";
 
 interface AIUnitTestProps {

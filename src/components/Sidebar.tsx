@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { AiOutlineCode, AiOutlineSetting } from "react-icons/ai";
+import { AiOutlineSetting } from "react-icons/ai";
 import { BsFileEarmarkCode, BsChevronLeft, BsChevronRight, BsFolder } from "react-icons/bs";
 import { Bug } from "lucide-react";
 interface SidebarProps {

@@ -209,7 +209,7 @@ const parseDocumentation = (text: string): Documentation => {
           returns: ''
         };
   
-        functionParts.forEach((line, index) => {
+        functionParts.forEach((line) => {
           if (line.startsWith('FUNCTION:')) {
             functionEntry.name = line.replace('FUNCTION:', '').trim();
           }

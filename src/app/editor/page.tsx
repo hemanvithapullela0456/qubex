@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, ReactElement } from "react";
-import { usePathname } from "next/navigation";
 import Sidebar from "../../components/Sidebar";
 import CodeEditor from "../../components/CodeEditor";
 import FileManager from "../../components/FileManager";
@@ -18,11 +17,10 @@ interface File {
   content: string;
 }
 
-export default function IDELayout({ children }: { children: ReactElement }) {
+export default function IDELayout() {
   const [openFiles, setOpenFiles] = useState<File[]>([]);
   const [activeFile, setActiveFile] = useState<File | null>(null);
   const [activeFeature, setActiveFeature] = useState<string | null>(null);
-  const pathname = usePathname();
 
   const handleFileOpen = (file: File) => {
     if (!openFiles.some((f) => f.name === file.name)) {

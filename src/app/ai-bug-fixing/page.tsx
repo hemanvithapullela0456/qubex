@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { FixBugsResponse } from "./types"; // Import your TypeScript types
+import { FixBugsResponse } from "./types"; 
 import { Bug, CheckCircle, Lightbulb, ChevronDown, ChevronUp, Copy } from "lucide-react";
 
 interface AIBugFixingProps {
@@ -9,7 +9,7 @@ interface AIBugFixingProps {
   onFileChange: (newContent: string) => void;
 }
 
-const AIBugFixing: React.FC<AIBugFixingProps> = ({ selectedFile, onFileChange }) => {
+const AIBugFixing: React.FC<AIBugFixingProps> = ({ selectedFile}) => {
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState<FixBugsResponse | null>(null);
   const [expandedSections, setExpandedSections] = useState({
