@@ -6,8 +6,9 @@ import { Bug, CheckCircle, Lightbulb, ChevronDown, ChevronUp, Copy } from "lucid
 
 interface AIBugFixingProps {
   selectedFile: { name: string; type: "file"; language: string; content: string } | null;
-  onFileChange: (newContent: string) => void;
+  onFileChange?: (newContent: string) => void;
 }
+
 
 export const AIBugFixing: React.FC<AIBugFixingProps> = ({ selectedFile}) => {
   const [loading, setLoading] = useState(false);
@@ -199,3 +200,5 @@ const Section: React.FC<SectionProps> = ({ title, icon: Icon, isExpanded, onTogg
     {isExpanded && <div className="p-3 space-y-3">{children}</div>}
   </div>
 );
+
+export default AIBugFixing;

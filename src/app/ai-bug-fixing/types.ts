@@ -23,12 +23,10 @@ export interface ErrorDetail {
     functions: string[];
     notes: string;
   }
-  
   export interface FixBugsResponse {
-    errors: ErrorDetail[];
-    suggestions: Suggestion[];
-    bestPractices: BestPractice[];
-    documentation: Documentation;
-    timestamp: string;
+    errors: { title: string; line: number; description: string; code: string; fixedCode: string }[];
+    suggestions: { title: string; code: string; explanation: string }[];
+    bestPractices: { title: string; code: string; explanation: string }[];
   }
+  
   
