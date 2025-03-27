@@ -9,7 +9,7 @@ interface AIBugFixingProps {
   onFileChange: (newContent: string) => void;
 }
 
-const AIBugFixing: React.FC<AIBugFixingProps> = ({ selectedFile}) => {
+export const AIBugFixing: React.FC<AIBugFixingProps> = ({ selectedFile}) => {
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState<FixBugsResponse | null>(null);
   const [expandedSections, setExpandedSections] = useState({
@@ -199,5 +199,3 @@ const Section: React.FC<SectionProps> = ({ title, icon: Icon, isExpanded, onTogg
     {isExpanded && <div className="p-3 space-y-3">{children}</div>}
   </div>
 );
-
-export default AIBugFixing;
